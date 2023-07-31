@@ -17,6 +17,7 @@ RUN dotnet publish -c Release -o publish
 # Etapa 3: Ejecutar la aplicación
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
+RUN mkdir wwwroot
 COPY --from=dotnet-build /app/publish ./
-COPY --from=react-build /app/ClientApp/dist ./ClientApp/dist
+COPY --from=react-build /app/ClientApp/dist ./wwwroot
 ENTRYPOINT ["dotnet", "react-fullstack.dll"]
